@@ -3,8 +3,8 @@ import { Github, Instagram, Linkedin } from "lucide-react";
 export default function Footer() {
   return (
     <>
-      <div className="font-lexend bg-[#191414] text-[#FFFFFF] font-light p-4">
-        <div className = "border-t py-4">
+      <div className="font-lexend bg-white font-light px-4">
+        <div className = "py-4">
           <div className="text-xs flex justify-between">
             <span>Made By Jie Xuan Liu @ UofT</span>
             <div className="flex gap-2">
@@ -14,7 +14,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="text-xs">
-            Important❗: Your Spotify Data is NEVER Saved on Any Database
+            Important❗: Your Spotify Data is NEVER Saved
           </div>
         </div>
       </div>

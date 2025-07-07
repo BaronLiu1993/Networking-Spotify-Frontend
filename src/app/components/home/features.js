@@ -4,7 +4,7 @@ export default function Features() {
   return (
     <>
       <div className="bg-[#191414] font-lexend text-neutral-800 h-fit flex flex-col">
-        <div className="bg-purple-300 w-full rounded-xl p-4 m-1">
+        <div className="bg-purple-200 w-full rounded-xl p-4 m-1">
           <div className="font-mono text-sm flex justify-between">
             <span>HOW IT WORKS</span>
             <span>01</span>
@@ -19,7 +19,7 @@ export default function Features() {
             <button></button>
           </div>
         </div>
-        <div className="bg-purple-300 w-full rounded-xl p-4 m-1 flex flex-col gap-4">
+        <div className="bg-purple-200 w-full rounded-xl p-4 m-1 flex flex-col gap-4">
           <div>
             <div className="font-mono text-sm flex justify-between">
               <span>WHAT IT DOES</span>
@@ -35,7 +35,7 @@ export default function Features() {
             <Badge>🎶 Music Compatibility</Badge>
           </div>
         </div>
-        <div className="bg-purple-300 w-full rounded-xl p-4 m-1">
+        <div className="bg-purple-200 w-full rounded-xl p-4 m-1">
           <div className="font-mono text-sm flex justify-between">
             <span>BREAK THE ICE</span>
             <span>03</span>

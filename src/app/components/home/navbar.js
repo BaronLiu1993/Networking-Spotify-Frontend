@@ -6,10 +6,10 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full bg-[#191414] border-b font-lexend">
+    <nav className="w-full font-lexend border-b-1">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <button
-          className="md:hidden text-[#FFFFFF]"
+          className="md:hidden text-[#191414]"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}

@@ -5,8 +5,8 @@ export default function Landing() {
         <div className="flex flex-col gap-6">
           <div className="flex flex-col font-light">
             <span>Hello UofT! 👋</span>
-            <span className="text-4xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-              Find Your Music Match
+            <span className="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+              FIND YOUR MUSIC MATCH
             </span>{" "}
             <span>With Just a QR Code </span>
           </div>
