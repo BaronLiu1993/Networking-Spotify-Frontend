@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <nav className="w-full font-lexend border-b-1">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
