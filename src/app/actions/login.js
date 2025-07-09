@@ -1,29 +1,39 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 export async function SendLogin(email, password) {
+  const cookieStore = await cookies();
   try {
-    const response = await fetch(
-      "https://1061-166-48-48-44.ngrok-free.app/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
-    const tokenData = await response.json();
-    const userData = await fetch("", {
-      method: "GET",
+    const response = await fetch("http://localhost:7000/auth/login", {
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${tokenData.access_token}`,
+        "content-type": "application/json",
       },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     });
-    const userId = await userData.json();
-    return userId;
+    const tokenData = await response.json();
+    console.log(tokenData);
+    cookieStore.set("access_token", tokenData.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+
+    cookieStore.set("refresh_token", tokenData.refresh_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+
+    return tokenData.userId;
   } catch (err) {
     console.log(err);
   }

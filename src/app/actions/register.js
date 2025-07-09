@@ -12,7 +12,7 @@ export async function SendRegister(
 ) {
   try {
     const response = await fetch(
-      "https://1061-166-48-48-44.ngrok-free.app/auth/register",
+      "https://18158ab10499.ngrok-free.app/auth/register",
       {
         method: "POST",
         headers: {
