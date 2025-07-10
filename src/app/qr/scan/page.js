@@ -1,12 +1,14 @@
 import { cookies } from "next/headers";
 
-export default async function Scan({ params }) {
+export default async function Scan({ searchParams }) {
   //Get User ID From Query Params
-  const userAId = params.id;
+  const userAId = searchParams.id;
   const cookieStore = await cookies();
   const userBId = cookieStore.get("userId");
+
   const accessToken = cookieStore.get("accessToken");
-  const userSyncData = await fetch(
+  {
+    /*const userSyncData = await fetch(
     "https://18158ab10499.ngrok-free.app/profile/analyse",
     {
       method: "POST",
@@ -20,11 +22,12 @@ export default async function Scan({ params }) {
       }),
     }
   );
-  const syncData = await userSyncData.json();
-  console.log(syncData);
+  const syncData = await userSyncData.json(); */
+  }
   return (
     <>
-      <div></div>
+      <div>{userAId}</div>
+      <div>{userBId}</div>
     </>
   );
 }
