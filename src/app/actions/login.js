@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export async function SendLogin(email, password) {
   const cookieStore = await cookies();
   try {
-    const response = await fetch("http://localhost:7000/auth/login", {
+    const response = await fetch("https://18158ab10499.ngrok-free.app/auth/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
