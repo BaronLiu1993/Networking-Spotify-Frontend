@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 export default async function Scan({ searchParams }) {
   //Get User ID From Query Params
   const userAId = searchParams.id;
+  console.log(userAId)
   const cookieStore = await cookies();
   const userBId = cookieStore.get("userId");
-
   const accessToken = cookieStore.get("accessToken");
   {
     /*const userSyncData = await fetch(
@@ -27,7 +27,7 @@ export default async function Scan({ searchParams }) {
   return (
     <>
       <div>{userAId}</div>
-      <div>{userBId}</div>
+      <div>{userBId.value}</div>
     </>
   );
 }
