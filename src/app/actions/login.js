@@ -25,6 +25,14 @@ export async function SendLogin(email, password) {
       path: "/",
     });
 
+    cookieStore.set("userId", tokenData.userId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 7,
+        path: "/",
+      });
+
     cookieStore.set("refresh_token", tokenData.refresh_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

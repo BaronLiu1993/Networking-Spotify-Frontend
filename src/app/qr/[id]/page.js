@@ -4,7 +4,7 @@ export default function QR ({ params }) {
     const userId = params.id
     return (
         <>
-            <QRGenerator />
+            <QRGenerator userId = {userId}/>
         </>
     )
 }
