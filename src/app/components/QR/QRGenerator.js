@@ -6,7 +6,7 @@ export default function QRGenerator({ userId }) {
       <div>
         <QRCode
           size={256}
-          value={`https://localhost:3000/scan?userAId=${userId}`}
+          value={`https://indie-b-sides-frontend.vercel.app/scan?userAId=${userId}`}
           viewBox={`0 0 256 256`}
         />
       </div>
