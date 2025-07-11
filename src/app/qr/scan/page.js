@@ -15,9 +15,8 @@ export default async function Scan({ searchParams }) {
   const cookieStore = await cookies();
   const userBId = cookieStore.get("userId");
   const accessToken = cookieStore.get("accessToken");
-  const userSyncData = await fetch(
-    "https://18158ab10499.ngrok-free.app/profile/analyse",
-    {
+  const [userSyncData, profileSyncData] = await Promise.all([
+    fetch("https://18158ab10499.ngrok-free.app/profile/analyse", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -27,12 +26,24 @@ export default async function Scan({ searchParams }) {
         userId1: "4690130c-c146-4ab9-800e-a33e2de2a736",
         userId2: "e310f200-a641-402c-ab8c-5daac579ad8d",
       }),
-    }
-  );
+    }),
+    fetch(
+      "https://18158ab10499.ngrok-free.app/auth/get-user?userId1=4690130c-c146-4ab9-800e-a33e2de2a736&userId2=e310f200-a641-402c-ab8c-5daac579ad8d",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ),
+  ]);
   const syncData = await userSyncData.json();
+  const profileData = await profileSyncData.json()
+  console.log(profileData)
+  console.log(syncData)
   return (
     <>
-      <ClientWrapper syncData = {syncData}/>
+      <ClientWrapper syncData={syncData} syncUserData={profileData}/>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { Badge } from "@/shadcomponents/ui/badge";
 
 export default function Popularity({ score }) {
-  console.log(score)
   let color = "bg-green-500";
   let label = "🌟 Hit";
 

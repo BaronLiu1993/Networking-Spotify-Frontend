@@ -3,7 +3,6 @@ import { Badge } from "@/shadcomponents/ui/badge";
 export default function Underground({ score }) {
   let color = "bg-green-600";
   let label = "🎧 Extremely Underground";
-  let intScore = Math.floor(score)
   if (score > 70) {
     color = "bg-red-500";
     label = "📻 Mainstream Listener";
@@ -16,8 +15,8 @@ export default function Underground({ score }) {
   }
 
   return (
-    <Badge className={`text-white ${color} text-lg font-semibold font-mono`}>
-      {label} ({100 - intScore}% underground)
+    <Badge className={`text-white ${color} text-sm font-semibold font-mono`}>
+      {label}
     </Badge>
   );
 }

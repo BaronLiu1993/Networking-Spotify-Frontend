@@ -14,9 +14,7 @@ export default function Artist({ artistData, score, userData }) {
   const cardRef = useRef(null);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(0);
-
   const totalPages = Math.ceil(artistData.length / itemsPerPage);
-
   const paginated = [];
   for (let i = 0; i < artistData.length; i += itemsPerPage) {
     paginated.push(artistData.slice(i, i + itemsPerPage));
@@ -70,8 +68,23 @@ export default function Artist({ artistData, score, userData }) {
       </div>
 
       <div className="px-6 space-y-4 overflow-y-auto h-full pt-8 pb-16">
-        <div className="text-md font-mono">LiuLiuLiuLiu's Top Artists</div>
-        <Underground score={score} />
+        <div className="text-md font-mono py-2 flex flex-col gap-2">
+          <div className="flex items-center justify-start gap-2">
+            {userData.image ? (
+              <Image
+                className="rounded-full"
+                src={userData.image}
+                alt="pfp"
+                width={28}
+                height={28}
+              />
+            ) : (
+              <div className="w-[28px] h-[28px] rounded-full bg-gray-200"></div>
+            )}
+            <span>{userData.name}'s Top Artists</span>
+          </div>
+          <Underground score={score} />
+        </div>
         {paginated[currentPage].map((data, idx) => (
           <div
             ref={idx === 0 ? cardRef : null}
