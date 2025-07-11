@@ -8,7 +8,7 @@ export default function Underground({ score }) {
     color = "bg-red-500";
     label = "📻 Mainstream Listener";
   } else if (score > 50) {
-    color = "bg-yellow-500";
+    color = "bg-purple-500";
     label = "🔄 Balanced Taste";
   } else if (score > 30) {
     color = "bg-blue-500";

@@ -1,20 +1,21 @@
 import { Badge } from "@/shadcomponents/ui/badge";
 
 export default function Popularity({ score }) {
+  console.log(score)
   let color = "bg-green-500";
-  let label = "🌟 Global Star";
+  let label = "🌟 Hit";
 
-  if (score < 90) {
+  if (score < 80) {
     color = "bg-yellow-500";
-    label = "🔥 Trending";
+    label = "🔥 Popular";
   }
   if (score < 70) {
     color = "bg-blue-500";
-    label = "🌱 Rising Artist";
+    label = "🌱 Trending";
   }
-  if (score < 50) {
+  if (score < 60) {
     color = "bg-gray-500";
-    label = "🎧 Underground";
+    label = "🎧 Hidden track";
   }
 
   return (
