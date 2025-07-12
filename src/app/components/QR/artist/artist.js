@@ -26,7 +26,7 @@ export default function Artist({ artistData, score, userData }) {
     const calculateItemsPerPage = () => {
       if (containerRef.current && cardRef.current) {
         const containerHeight = containerRef.current.clientHeight;
-        const cardHeight = cardRef.current.clientHeight + 24; // spacing
+        const cardHeight = cardRef.current.clientHeight + 24; 
         const maxItems = Math.floor(containerHeight / cardHeight);
         setItemsPerPage(Math.max(1, maxItems));
       }
