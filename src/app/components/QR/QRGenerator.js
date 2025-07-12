@@ -19,10 +19,9 @@ export default function QRGenerator({ userId, messageId }) {
         }
       );
       const data = await response.json();
+      console.log(data)
       if (data.success) {
-        router.push(
-          `https://indie-b-sides-frontend.vercel.app/qr/scan/qr/scan?id=${data.message}&messageId=${messageId}`
-        );
+        window.location.href = `https://indie-b-sides-frontend.vercel.app/qr/scan/qr/scan?id=${data.message}&messageId=${messageId}`
       }
     }, 3000);
 
