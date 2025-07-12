@@ -10,8 +10,6 @@ import { useState } from "react";
 export default function Profiles({ userId1, userId2, userData, spotifyData }) {
   const [followSuccess, setFollowSuccess] = useState(false);
   const [createPlaylistSuccess, setPlaylistSuccess] = useState(false);
-  console.log(userData)
-  console.log(spotifyData)
   const handleFollow = async () => {
     const response = await Follow(userId1, userId2);
     setFollowSuccess(response.success ? "Worked" : "Failed");
