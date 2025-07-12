@@ -2,10 +2,8 @@
 
 import QRCode from "react-qr-code";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 export default function QRGenerator({ userId, messageId }) {
-  const router = useRouter();
   useEffect(() => {
     const interval = setInterval(async () => {
       const response = await fetch(
