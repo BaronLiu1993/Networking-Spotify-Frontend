@@ -16,8 +16,8 @@ export default function Underground({ score }) {
   }
 
   return (
-    <Badge className={`text-white ${color} text-lg font-semibold font-mono`}>
-      {label} ({100 - intScore}% underground)
+    <Badge className={`text-white ${color} text-sm font-semibold font-mono`}>
+      {label}
     </Badge>
   );
 }

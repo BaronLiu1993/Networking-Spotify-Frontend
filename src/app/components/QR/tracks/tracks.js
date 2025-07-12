@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Underground from "./underground";
 import Popularity from "./popularity";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Tracks({ trackData, score, userData }) {
   const containerRef = useRef(null);
@@ -25,7 +26,7 @@ export default function Tracks({ trackData, score, userData }) {
     const calculateItemsPerPage = () => {
       if (containerRef.current && cardRef.current) {
         const containerHeight = containerRef.current.clientHeight;
-        const cardHeight = cardRef.current.clientHeight;
+        const cardHeight = cardRef.current.clientHeight + 24;
         const maxItems = Math.floor(containerHeight / cardHeight);
         setItemsPerPage(Math.max(1, maxItems));
       }
@@ -57,20 +58,23 @@ export default function Tracks({ trackData, score, userData }) {
       onClick={handleTap}
       onTouchStart={handleTap}
     >
+      {/* Progress bar */}
       <div className="absolute top-4 left-0 right-0 z-20 px-4 flex gap-1">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <div
             key={idx}
-            className={`h-1 flex-1 rounded-full ${
-              idx <= currentPage ? "bg-black" : "bg-[#E0E0E0]"
+            className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+              idx === currentPage ? "bg-black" : "bg-[#E0E0E0]"
             }`}
-          ></div>
+          />
         ))}
       </div>
 
-      <div className="px-6 space-y-4 overflow-y-auto h-full pt-8 pb-16">
+      {/* Content area */}
+      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-16 pb-20">
+        {/* Header */}
         <div className="text-md font-mono py-2 flex flex-col gap-2">
-          <div className="flex items-center justify-start gap-2">
+          <div className="flex items-center gap-2">
             {userData?.image ? (
               <Image
                 className="rounded-full"
@@ -80,44 +84,54 @@ export default function Tracks({ trackData, score, userData }) {
                 height={28}
               />
             ) : (
-              <div className="w-[28px] h-[28px] rounded-full bg-gray-200"></div>
+              <div className="w-[28px] h-[28px] rounded-full bg-gray-200" />
             )}
-            <span>{userData?.name}'s Track List</span>
+            <span className="text-sm sm:text-base">
+              {userData?.name} Track List
+            </span>
           </div>
           <Underground score={score} />
         </div>
 
-        {/* Tracks */}
-        {paginated[currentPage].map((data, idx) => (
-          <div
-            ref={idx === 0 ? cardRef : null}
-            key={data.id}
-            className="bg-[#F8F8F8] p-4 rounded-sm hover:bg-gray-200 shadow border"
-          >
-            <div className="flex items-center gap-4">
-              <Image
-                src={data.image}
-                alt="Track image"
-                width={96}
-                height={96}
-                className="rounded object-cover"
-              />
-              <div className="flex flex-col gap-2">
-                <Popularity score={data.popularity} />
-                <div className="font-semibold">{data.name}</div>
-                <div className="font-light text-sm text-gray-600">
-                  By {data.artist}
+        {/* Track cards with animation */}
+        <AnimatePresence mode="wait">
+          {paginated[currentPage].map((data, idx) => (
+            <motion.div
+              key={data.id}
+              ref={idx === 0 ? cardRef : null}
+              className="bg-[#F9F9F9] p-4 rounded-md shadow border hover:shadow-md hover:scale-[1.02] transition-transform duration-200"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, delay: idx * 0.1 }}
+            >
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                <Image
+                  src={data.image}
+                  alt="Track image"
+                  width={96}
+                  height={96}
+                  className="rounded object-cover shrink-0"
+                />
+                <div className="flex flex-col gap-2">
+                  <Popularity score={data.popularity} />
+                  <div className="font-semibold text-sm sm:text-base">
+                    {data.name}
+                  </div>
+                  <div className="font-light text-sm text-gray-600">
+                    By {data.artist}
+                  </div>
+                  <Link href={data.uri} target="_blank">
+                    <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2">
+                      <span>listen</span>
+                      <Music className="ml-1 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
-                <Link href={data.uri} target="_blank">
-                  <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit">
-                    <span>listen</span>
-                    <Music className="ml-1 h-4 w-4" />
-                  </Button>
-                </Link>
               </div>
-            </div>
-          </div>
-        ))}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );

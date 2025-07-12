@@ -36,7 +36,7 @@ export default function ClientWrapper({ syncData, syncUserData }) {
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [activeIndex]);
+  }, [activeIndex, handleWheel]);
   console.log(syncData);
   return (
     <div className="h-screen overflow-hidden">
