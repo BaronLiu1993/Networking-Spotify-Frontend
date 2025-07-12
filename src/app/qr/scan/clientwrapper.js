@@ -5,7 +5,7 @@ import Artist from "@/app/components/QR/artist/artist";
 import Tracks from "@/app/components/QR/tracks/tracks";
 import Profiles from "@/app/components/profiles/profiles";
 
-export default function ClientWrapper({ syncData, syncUserData }) {
+export default function ClientWrapper({ userId1, userId2, syncData, syncUserData }) {
   const sectionRefs = [
     useRef(null),
     useRef(null),
@@ -72,6 +72,8 @@ export default function ClientWrapper({ syncData, syncUserData }) {
         <Profiles
           spotifyData={syncData.data.userData}
           userData={syncUserData.data}
+          userId1={userId1}
+          userId2={userId2}
         />
       </div>
     </div>

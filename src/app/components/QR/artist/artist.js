@@ -26,7 +26,7 @@ export default function Artist({ artistData, score, userData }) {
     const calculateItemsPerPage = () => {
       if (containerRef.current && cardRef.current) {
         const containerHeight = containerRef.current.clientHeight;
-        const cardHeight = cardRef.current.clientHeight + 24; 
+        const cardHeight = cardRef.current.clientHeight + 24;
         const maxItems = Math.floor(containerHeight / cardHeight);
         setItemsPerPage(Math.max(1, maxItems));
       }
@@ -55,7 +55,7 @@ export default function Artist({ artistData, score, userData }) {
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full font-lexend bg-white overflow-hidden"
+      className="relative h-screen w-full font-lexend bg-[#F1F1EF] border-1 m-1 rounded-md overflow-hidden"
       onClick={handleTap}
       onTouchStart={handleTap}
     >
@@ -70,25 +70,27 @@ export default function Artist({ artistData, score, userData }) {
         ))}
       </div>
 
-      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-6 pb-20">
-        <div className="text-md font-mono py-2 flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            {userData.image ? (
-              <Image
-                className="rounded-full"
-                src={userData.image}
-                alt="pfp"
-                width={28}
-                height={28}
-              />
-            ) : (
-              <div className="w-[28px] h-[28px] rounded-full bg-gray-200" />
-            )}
-            <span className="text-sm sm:text-base">{userData.name} Top Artists</span>
-          </div>
-          <Underground score={score} />
+      {/* Main Content */}
+      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-6 pb-20 text-xs sm:text-sm">
+        {/* Header */}
+        <div className="text-sm sm:text-base font-mono py-2 flex items-center gap-2">
+          {userData.image ? (
+            <Image
+              className="rounded-full"
+              src={userData.image}
+              alt="pfp"
+              width={28}
+              height={28}
+            />
+          ) : (
+            <div className="w-[28px] h-[28px] rounded-full bg-gray-200" />
+          )}
+          <span>{userData.name} Top Artists</span>
         </div>
 
+        <Underground score={score} />
+
+        {/* Cards */}
         <AnimatePresence mode="wait">
           {paginated[currentPage].map((data, idx) => (
             <motion.div
@@ -100,7 +102,7 @@ export default function Artist({ artistData, score, userData }) {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, delay: idx * 0.1 }}
             >
-              <div className="flex items-start gap-4 sm:gap-6 flex-col sm:flex-row">
+              <div className="flex flex-row gap-4 sm:gap-6">
                 <Image
                   src={data.image}
                   alt="Profile image"
@@ -108,15 +110,15 @@ export default function Artist({ artistData, score, userData }) {
                   height={96}
                   className="rounded object-cover shrink-0"
                 />
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 min-w-0">
                   <Popularity score={data.popularity} />
-                  <div className="font-semibold text-sm sm:text-base">
+                  <div className="font-semibold text-xs sm:text-sm truncate">
                     {data.name} – {data.followers.toLocaleString()} Followers
                   </div>
                   <div className="flex gap-2 flex-wrap">
                     {data.genre.map((genres, i) => (
                       <Badge
-                        className="text-xs bg-[#E6F5FC] text-[#004875] border-[#004875] border-2"
+                        className="text-[10px] sm:text-xs bg-[#E6F5FC] text-[#004875] border-[#004875] border-2"
                         key={i}
                       >
                         {genres}
@@ -124,9 +126,9 @@ export default function Artist({ artistData, score, userData }) {
                     ))}
                   </div>
                   <Link href={data.uri} target="_blank">
-                    <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2">
+                    <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2 text-[10px] sm:text-xs">
                       <span>discover discography</span>
-                      <ArrowRight className="ml-1 h-4 w-4" />
+                      <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </div>

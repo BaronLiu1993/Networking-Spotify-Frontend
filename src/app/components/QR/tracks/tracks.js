@@ -54,11 +54,10 @@ export default function Tracks({ trackData, score, userData }) {
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full font-lexend bg-white overflow-hidden"
+      className="relative h-screen w-full bg-[#F1F1EF] border-1 rounded-md font-lexend overflow-hidden"
       onClick={handleTap}
       onTouchStart={handleTap}
     >
-      {/* Progress bar */}
       <div className="absolute top-4 left-0 right-0 z-20 px-4 flex gap-1">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <div
@@ -70,28 +69,23 @@ export default function Tracks({ trackData, score, userData }) {
         ))}
       </div>
 
-      {/* Content area */}
-      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-16 pb-20">
-        {/* Header */}
-        <div className="text-md font-mono py-2 flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            {userData?.image ? (
-              <Image
-                className="rounded-full"
-                src={userData.image}
-                alt="pfp"
-                width={28}
-                height={28}
-              />
-            ) : (
-              <div className="w-[28px] h-[28px] rounded-full bg-gray-200" />
-            )}
-            <span className="text-sm sm:text-base">
-              {userData?.name} Track List
-            </span>
-          </div>
-          <Underground score={score} />
+      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-6 pb-20 text-xs sm:text-sm">
+        <div className="text-sm sm:text-base font-mono py-2 flex items-center gap-2">
+          {userData?.image ? (
+            <Image
+              className="rounded-full"
+              src={userData.image}
+              alt="pfp"
+              width={28}
+              height={28}
+            />
+          ) : (
+            <div className="w-[28px] h-[28px] rounded-full bg-gray-200" />
+          )}
+          <span>{userData?.name} Track List</span>
         </div>
+
+        <Underground score={score} />
 
         {/* Track cards with animation */}
         <AnimatePresence mode="wait">
@@ -105,7 +99,7 @@ export default function Tracks({ trackData, score, userData }) {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, delay: idx * 0.1 }}
             >
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+              <div className="flex flex-row items-start gap-4 sm:gap-6">
                 <Image
                   src={data.image}
                   alt="Track image"
@@ -113,18 +107,18 @@ export default function Tracks({ trackData, score, userData }) {
                   height={96}
                   className="rounded object-cover shrink-0"
                 />
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 min-w-0">
                   <Popularity score={data.popularity} />
-                  <div className="font-semibold text-sm sm:text-base">
+                  <div className="font-semibold truncate text-xs sm:text-sm">
                     {data.name}
                   </div>
-                  <div className="font-light text-sm text-gray-600">
+                  <div className="font-light text-gray-600 text-[11px] sm:text-sm">
                     By {data.artist}
                   </div>
                   <Link href={data.uri} target="_blank">
-                    <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2">
+                    <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2 text-[10px] sm:text-xs">
                       <span>listen</span>
-                      <Music className="ml-1 h-4 w-4" />
+                      <Music className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </div>

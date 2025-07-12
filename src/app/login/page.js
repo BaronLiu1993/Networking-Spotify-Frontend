@@ -28,7 +28,6 @@ export default function Login() {
       <div className="bg-gray-100 font-lexend min-h-screen flex flex-col">
         <Navbar />
 
-        {/* Centered Login Box */}
         <main className="flex-grow flex items-center justify-center px-4 py-8">
           <div className="w-full max-w-md bg-white shadow-md rounded-xl p-6 space-y-6">
             <h1 className="text-3xl font-bold text-center">Login</h1>
