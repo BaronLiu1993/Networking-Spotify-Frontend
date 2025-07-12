@@ -9,7 +9,7 @@ export default async function Scan({ searchParams }) {
   const userId2 = cookieStore.get("userId");
   const accessToken = cookieStore.get("accessToken");
 
-  const [userSyncData, profileSyncData] = await Promise.all([
+  const [userSyncData, profileSyncData, logDB] = await Promise.all([
     fetch("https://18158ab10499.ngrok-free.app/profile/analyse", {
       method: "POST",
       headers: {
@@ -21,6 +21,16 @@ export default async function Scan({ searchParams }) {
         userId2: userId2.value,
       }),
     }),
+
+    fetch(
+      `https://18158ab10499.ngrok-free.app/auth/get-user?userId1=${userId1}&userId2=${userId2.value}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ),
     fetch("https://18158ab10499.ngrok-free.app/profile/post-scan", {
       method: "POST",
       headers: {
@@ -33,20 +43,10 @@ export default async function Scan({ searchParams }) {
         messageId,
       }),
     }),
-    fetch(
-      `https://18158ab10499.ngrok-free.app/auth/get-user?userId1=${userId1}&userId2=${userId2.value}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    ),
   ]);
   const syncData = await userSyncData.json();
   const profileData = await profileSyncData.json();
-  console.log(profileData);
-  console.log(syncData);
+  const logDbData = await logDB.json() 
   return (
     <>
       <ClientWrapper

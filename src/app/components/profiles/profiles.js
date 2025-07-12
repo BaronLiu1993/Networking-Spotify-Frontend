@@ -10,7 +10,8 @@ import { useState } from "react";
 export default function Profiles({ userId1, userId2, userData, spotifyData }) {
   const [followSuccess, setFollowSuccess] = useState(false);
   const [createPlaylistSuccess, setPlaylistSuccess] = useState(false);
-
+  console.log(userData)
+  console.log(spotifyData)
   const handleFollow = async () => {
     const response = await Follow(userId1, userId2);
     setFollowSuccess(response.success ? "Worked" : "Failed");
@@ -23,7 +24,6 @@ export default function Profiles({ userId1, userId2, userData, spotifyData }) {
 
   return (
     <div className="flex flex-col h-screen items-center justify-center p-4 sm:p-6 space-y-6 overflow-hidden">
-      {/* Profile Images Stack */}
       <div className="relative w-[250px] sm:w-[350px] h-[200px] sm:h-[240px] transition duration-300 hover:scale-105">
         {spotifyData.user2.image ? (
           <Image
@@ -50,18 +50,17 @@ export default function Profiles({ userId1, userId2, userData, spotifyData }) {
         )}
       </div>
 
-      {/* Profile Cards */}
       <div className="flex flex-row justify-center items-start gap-4 sm:gap-16 font-mono w-full flex-wrap text-xs sm:text-sm px-2">
         <div className="text-center sm:text-left space-y-2 max-w-[300px] break-words">
           <h1 className="text-sm sm:text-base underline">{spotifyData.user1.name}&apos;s</h1>
           <h2 className="text-sm sm:text-base underline">Profile</h2>
           <ul className="font-lexend text-xs sm:text-sm text-left space-y-1">
-            <li>{`1. ${userData.userData2[0].major}`}</li>
-            <li>2. {userData.userData2[0].year} Year</li>
+            <li>{`1. ${userData.userData2[0]?.major}`}</li>
+            <li>2. {userData.userData2[0]?.year} Year</li>
             <li>
               <div>3. I Love...</div>
               <div className="pl-4">
-                {userData.userData2[0].interests.map((data, idx) => (
+                {userData.userData2[0]?.interests.map((data, idx) => (
                   <div key={idx}>{data}</div>
                 ))}
               </div>
