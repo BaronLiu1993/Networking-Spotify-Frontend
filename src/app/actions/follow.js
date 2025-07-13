@@ -1,7 +1,7 @@
 export const Follow = async (userId1, userId2) => {
     try {
         const response = await fetch(
-            `https://25423d2f6236.ngrok-free.app/profile/follow`,
+            `https://network-spotify-backend.onrender.com/profile/follow`,
             {
               method: "POST",
               headers: {

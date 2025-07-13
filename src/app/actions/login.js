@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export async function SendLogin(email, password) {
   const cookieStore = await cookies();
   try {
-    const response = await fetch("https://25423d2f6236.ngrok-free.app/auth/login", {
+    const response = await fetch("https://network-spotify-backend.onrender.com/auth/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",

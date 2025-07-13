@@ -10,7 +10,7 @@ export default async function Scan({ searchParams }) {
   const accessToken = cookieStore.get("accessToken");
 
   const [userSyncData, profileSyncData, logDB] = await Promise.all([
-    fetch("https://25423d2f6236.ngrok-free.app/profile/analyse", {
+    fetch("https://network-spotify-backend.onrender.com/profile/analyse", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -23,7 +23,7 @@ export default async function Scan({ searchParams }) {
     }),
 
     fetch(
-      `https://25423d2f6236.ngrok-free.app/auth/get-user?userId1=${userId1}&userId2=${userId2.value}`,
+      `https://network-spotify-backend.onrender.com/auth/get-user?userId1=${userId1}&userId2=${userId2.value}`,
       {
         method: "GET",
         headers: {
@@ -31,7 +31,7 @@ export default async function Scan({ searchParams }) {
         },
       }
     ),
-    fetch("https://25423d2f6236.ngrok-free.app/profile/post-scan", {
+    fetch("https://network-spotify-backend.onrender.com/profile/post-scan", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,

@@ -7,7 +7,7 @@ export default function QRGenerator({ userId, messageId }) {
   useEffect(() => {
     const interval = setInterval(async () => {
       const response = await fetch(
-        `https://25423d2f6236.ngrok-free.app/profile/get-scan`,
+        `https://network-spotify-backend.onrender.com/profile/get-scan`,
         {
           method: "POST",
           headers: {

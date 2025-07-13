@@ -12,7 +12,7 @@ export async function SendRegister(
 ) {
   try {
     const response = await fetch(
-      "https://25423d2f6236.ngrok-free.app/auth/register",
+      "https://network-spotify-backend.onrender.com/auth/register",
       {
         method: "POST",
         headers: {
