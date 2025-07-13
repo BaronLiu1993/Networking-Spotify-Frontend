@@ -8,7 +8,7 @@ export default async function QR({ params }) {
   const messageId = uuidv4();
   const userId = params.id;
   const profileSyncData = await fetch(
-    `https://25423d2f6236.ngrok-free.app/getUserSpotifyProfile?userId=${userId}`,
+    `https://25423d2f6236.ngrok-free.app/profile/getUserSpotifyProfile?userId=${userId}`,
     {
       method: "GET",
     }
