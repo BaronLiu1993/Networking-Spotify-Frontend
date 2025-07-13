@@ -1,36 +1,17 @@
-"use client";
-import { useState } from "react";
-import { Menu, X } from "lucide-react"; 
+import Link from "next/link";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  //Check if logged in in it is not then give register and login if not then give generate new QR code
   return (
-    <nav className="w-full font-lexend border-b-1">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <button
-          className="md:hidden text-[#191414]"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        <ul className="hidden md:flex space-x-6 text-[#FFFFFF] font-medium">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Discover</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Login</a></li>
-        </ul>
-      </div>
-
-      {isOpen && (
-        <ul className="md:hidden px-4 pb-4 space-y-2 text-[#FFFFFF] font-medium">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Discover</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Login</a></li>
-        </ul>
-      )}
+    <nav className="w-full font-lexend border-b-1 p-3">
+      <ul className="flex space-x-6 text-[#004875] font-light">
+        <li className="hover:font-semibold hover:bg-[#F8F8F8] p-1 rounded-md">
+          <Link href="/">Home</Link>
+        </li>
+        <li className="hover:font-semibold hover:bg-[#F8F8F8] p-1 rounded-md">
+          <Link href="/">New QR Code</Link>
+        </li>
+      </ul>
     </nav>
   );
 }
-

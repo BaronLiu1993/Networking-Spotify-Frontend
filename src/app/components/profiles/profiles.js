@@ -97,7 +97,6 @@ export default function Profiles({ userId1, userId2, userData, spotifyData }) {
         </div>
       </div>
 
-      {/* Buttons */}
       <div className="font-lexend flex flex-wrap justify-center items-center gap-4 text-xs sm:text-sm">
         <Button
           onClick={handleFollow}
