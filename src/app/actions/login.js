@@ -16,7 +16,6 @@ export async function SendLogin(email, password) {
       }),
     });
     const tokenData = await response.json();
-    console.log(tokenData);
     cookieStore.set("access_token", tokenData.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "../components/home/navbar";
 import Footer from "../components/home/footer";
 import { Input } from "@/shadcomponents/ui/input";
 import { SendLogin } from "../actions/login";
@@ -26,8 +25,6 @@ export default function Login() {
   return (
     <>
       <div className="bg-gray-100 font-lexend min-h-screen flex flex-col">
-        <Navbar />
-
         <main className="flex-grow flex items-center justify-center px-4 py-8">
           <div className="w-full max-w-md bg-white shadow-md rounded-xl p-6 space-y-6">
             <h1 className="text-3xl font-bold text-center">Login</h1>
@@ -62,7 +59,7 @@ export default function Login() {
 
             <button
               onClick={() => handleLogin(formData.email, formData.password)}
-              className="w-full bg-black text-white py-2 rounded-md font-semibold hover:bg-gray-900 transition"
+              className="text-xs sm:text-sm rounded-xs px-4 py-2 bg-white cursor-pointer text-[#004875] border-2 border-[#004875] hover:text-white hover:bg-[#004875] transition"
             >
               Login
             </button>

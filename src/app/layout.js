@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono, Lexend, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/home/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${lexend.variable} antialiased`}
       >
+        
         {children}
       </body>
     </html>

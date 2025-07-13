@@ -1,5 +1,4 @@
 import Footer from "@/app/components/home/footer";
-import Navbar from "@/app/components/home/navbar";
 import QRGenerator from "@/app/components/QR/QRGenerator";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
@@ -18,8 +17,6 @@ export default async function QR({ params }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-
       <div className="flex-grow flex items-center justify-center">
         <div className="flex flex-col gap-6 items-center font-lexend p-6">
           <div className="flex gap-4 items-center">

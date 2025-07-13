@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import MultiSelectDropdown from "../components/auth/MultiSelectDropdown";
-import Navbar from "../components/home/navbar";
 import Footer from "../components/home/footer";
 
 import Image from "next/image";
@@ -34,7 +33,6 @@ export default function Register() {
   const handleChange = (field, value) => {
     setFormData((prev) => {
       const updated = { ...prev, [field]: value };
-      console.log("Form Updated:", updated);
       return updated;
     });
   };
@@ -59,14 +57,12 @@ export default function Register() {
       college,
       interests
     );
-    console.log(response);
     window.location.href = response;
   };
 
   return (
     <>
       <div className="bg-gray-100 font-lexend">
-        <Navbar />
         <div className="p-4 space-y-4">
           <h1 className="font-bold text-3xl">Create Profile</h1>
           <div>
@@ -156,17 +152,25 @@ export default function Register() {
               <SelectContent className="font-lexend">
                 <SelectGroup>
                   <SelectLabel>College / Campus</SelectLabel>
-                  <SelectItem value="utm">UTM</SelectItem>
-                  <SelectItem value="utsc">UTSC</SelectItem>
-                  <SelectItem value="trinity">Trinity College</SelectItem>
-                  <SelectItem value="victoria">Victoria College</SelectItem>
-                  <SelectItem value="innis">Innis College</SelectItem>
-                  <SelectItem value="new">New College</SelectItem>
-                  <SelectItem value="st_mikes">
+                  <SelectItem value="UTM">UTM</SelectItem>
+                  <SelectItem value="UTSC">UTSC</SelectItem>
+                  <SelectItem value="Trinity College">
+                    Trinity College
+                  </SelectItem>
+                  <SelectItem value="Victoria College">
+                    Victoria College
+                  </SelectItem>
+                  <SelectItem value="Innis College">Innis College</SelectItem>
+                  <SelectItem value="New College">New College</SelectItem>
+                  <SelectItem value="St. Mikes College">
                     St. Michael’s College
                   </SelectItem>
-                  <SelectItem value="woods">Woodsworth College</SelectItem>
-                  <SelectItem value="uc">University College</SelectItem>
+                  <SelectItem value="Woodsworth College">
+                    Woodsworth College
+                  </SelectItem>
+                  <SelectItem value="University College">
+                    University College
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -181,11 +185,11 @@ export default function Register() {
               <SelectContent className="font-lexend">
                 <SelectGroup>
                   <SelectLabel>Year</SelectLabel>
-                  <SelectItem value="first">First Year</SelectItem>
-                  <SelectItem value="second">Second Year</SelectItem>
-                  <SelectItem value="third">Third Year</SelectItem>
-                  <SelectItem value="fourth">Fourth Year</SelectItem>
-                  <SelectItem value="coop">PEY / COOP Term</SelectItem>
+                  <SelectItem value="First">First Year</SelectItem>
+                  <SelectItem value="Second">Second Year</SelectItem>
+                  <SelectItem value="Third">Third Year</SelectItem>
+                  <SelectItem value="Fourth">Fourth Year</SelectItem>
+                  <SelectItem value="COOP">PEY / COOP Term</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -222,7 +226,7 @@ export default function Register() {
                 formData.interests
               )
             }
-            className="p-2 w-fit bg-black flex text-white rounded-xs items-center gap-2"
+            className=" flex items-center gap-2 text-xs sm:text-sm rounded-xs px-4 py-2 bg-white cursor-pointer text-[#004875] border-2 border-[#004875] hover:text-white hover:bg-[#004875] transition"
           >
             <Image
               src="/spotify.svg"
@@ -230,7 +234,7 @@ export default function Register() {
               height={30}
               alt="Spotify Logo"
             />
-            <span className="text-[#FFFFFF] text-sm">
+            <span className="text-sm">
               Connect to Spotify + Register
             </span>
           </button>

@@ -8,7 +8,6 @@ export default async function Scan({ searchParams }) {
   const cookieStore = await cookies();
   const userId2 = cookieStore.get("userId");
   const accessToken = cookieStore.get("accessToken");
-
   const [userSyncData, profileSyncData, logDB] = await Promise.all([
     fetch("https://network-spotify-backend.onrender.com/profile/analyse", {
       method: "POST",
