@@ -1,7 +1,7 @@
 export const CreatePlaylist = async (userId1, userId2) => {
   try {
     const response = await fetch(
-      `https://18158ab10499.ngrok-free.app/profile/create/shared-playlists`,
+      `https://25423d2f6236.ngrok-free.app/profile/create/shared-playlists`,
       {
         method: "POST",
         headers: {

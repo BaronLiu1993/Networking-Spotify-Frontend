@@ -21,7 +21,7 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
     await controls.start({ y: -index * SECTION_HEIGHT, transition: { duration: 0.6, ease: "easeInOut" } });
     setTimeout(() => {
       isAnimatingRef.current = false;
-    }, 700); // buffer time to prevent spam swipes
+    }, 700); 
   };
 
   const handleWheel = (e) => {
