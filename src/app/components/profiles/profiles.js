@@ -1,15 +1,12 @@
 "use client";
 
 import { Button } from "@/shadcomponents/ui/button";
-import { Instagram } from "lucide-react";
 import Image from "next/image";
 import { Follow } from "@/app/actions/follow";
 import { CreatePlaylist } from "@/app/actions/createPlaylist";
 import { useState } from "react";
 
 export default function Profiles({ userId1, userId2, userData, spotifyData }) {
-  const [followSuccess, setFollowSuccess] = useState(false);
-  const [createPlaylistSuccess, setPlaylistSuccess] = useState(false);
   const handleFollow = async () => {
     const response = await Follow(userId1, userId2);
     setFollowSuccess(response.success ? "Worked" : "Failed");
@@ -63,13 +60,6 @@ export default function Profiles({ userId1, userId2, userData, spotifyData }) {
                 ))}
               </div>
             </li>
-            <li>4. St Mikes</li>
-            <li className="flex gap-1 items-center">
-              <span>5.</span>
-              <span className="flex items-center gap-1">
-                <Instagram size={14} /> baronliuliuliu
-              </span>
-            </li>
           </ul>
         </div>
 
@@ -86,12 +76,6 @@ export default function Profiles({ userId1, userId2, userData, spotifyData }) {
                   <div key={idx}>{data}</div>
                 ))}
               </div>
-            </li>
-            <li>4. St Mikes</li>
-            <li className="flex gap-1 items-center">
-              <span className="flex items-center gap-1">
-                Add me on <Instagram size={14} /> baronliuliuliu
-              </span>
             </li>
           </ul>
         </div>
