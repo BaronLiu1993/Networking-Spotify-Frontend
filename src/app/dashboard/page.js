@@ -7,7 +7,7 @@ export default async function Dashboard() {
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId");
   const accessToken = cookieStore.get("access_token");
-
+  
   const [refreshTokenData, checkAuthorised] = await Promise.all([
     fetch(
       `https://network-spotify-backend.onrender.com/auth/refresh-token/${userId?.value}`,
