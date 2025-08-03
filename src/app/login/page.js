@@ -17,6 +17,7 @@ export default function Login() {
 
   const handleLogin = async (email, password) => {
     const userId = await SendLogin(email, password);
+    console.log(userId)
     if (userId) {
       window.location.href = `https://indie-b-sides-frontend.vercel.app/qr/${encodeURIComponent(
         userId
