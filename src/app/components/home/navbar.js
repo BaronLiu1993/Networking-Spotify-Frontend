@@ -2,8 +2,7 @@ import Link from "next/link";
 import LogoutButton from "../auth/logout";
 
 export default async function Navbar({ authorisedStatus }) {
-  //Attempt to Refresh Token
-  console.log(authorisedStatus);
+  
   return (
     <nav className="w-full font-lexend border-b-1 p-3">
       <ul className="flex space-x-6 text-[#004875] font-light">

@@ -17,9 +17,11 @@ export default function Login() {
 
   const handleLogin = async (email, password) => {
     const userId = await SendLogin(email, password);
-    window.location.href = `http://localhost:3000/qr/${encodeURIComponent(
-      userId
-    )}`;
+    if (userId) {
+      window.location.href = `http://localhost:3000/qr/${encodeURIComponent(
+        userId
+      )}`;
+    }
   };
 
   return (
