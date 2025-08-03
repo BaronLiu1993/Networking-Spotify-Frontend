@@ -24,17 +24,20 @@ export default function Artist({ artistData, score, userData }) {
 
   useEffect(() => {
     const calculateItemsPerPage = () => {
-      if (containerRef.current && cardRef.current) {
-        const containerHeight = containerRef.current.clientHeight;
-        const cardHeight = cardRef.current.clientHeight + 24;
-        const maxItems = Math.floor(containerHeight / cardHeight);
-        setItemsPerPage(Math.max(1, maxItems));
-      }
+      if (!containerRef.current || !cardRef.current) return;
+      const containerHeight = containerRef.current.clientHeight;
+      const cardHeight = cardRef.current.clientHeight + 24;
+      const max = Math.floor(containerHeight / cardHeight);
+      setItemsPerPage(Math.max(1, max));
     };
 
-    calculateItemsPerPage();
+    const timeout = setTimeout(calculateItemsPerPage, 100);
+
     window.addEventListener("resize", calculateItemsPerPage);
-    return () => window.removeEventListener("resize", calculateItemsPerPage);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", calculateItemsPerPage);
+    };
   }, []);
 
   const handleTap = (e) => {
@@ -55,11 +58,12 @@ export default function Artist({ artistData, score, userData }) {
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full font-lexend bg-[#F1F1EF] border-1 m-1 rounded-md overflow-hidden"
+      className="h-full w-full font-lexend bg-[#F1F1EF] rounded-md overflow-hidden flex flex-col"
       onClick={handleTap}
       onTouchStart={handleTap}
     >
-      <div className="absolute top-4 left-0 right-0 z-20 px-4 flex gap-1">
+      {/* Pagination dots */}
+      <div className="px-4 py-2 flex gap-1 z-10">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <div
             key={idx}
@@ -70,15 +74,15 @@ export default function Artist({ artistData, score, userData }) {
         ))}
       </div>
 
-      {/* Main Content */}
-      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-6 pb-20 text-xs sm:text-sm">
+      {/* Content scroll area */}
+      <div className="flex-1 px-4 sm:px-6 overflow-y-auto pb-20 space-y-4 text-xs sm:text-sm">
         {/* Header */}
         <div className="text-sm sm:text-base font-mono py-2 flex items-center gap-2">
           {userData.image ? (
             <Image
               className="rounded-full"
               src={userData.image}
-              alt="pfp"
+              alt="Profile picture"
               width={28}
               height={28}
             />
@@ -90,7 +94,7 @@ export default function Artist({ artistData, score, userData }) {
 
         <Underground score={score} />
 
-        {/* Cards */}
+        {/* Artist cards with animation */}
         <AnimatePresence mode="wait">
           {paginated[currentPage].map((data, idx) => (
             <motion.div
@@ -105,7 +109,7 @@ export default function Artist({ artistData, score, userData }) {
               <div className="flex flex-row gap-4 sm:gap-6">
                 <Image
                   src={data.image}
-                  alt="Profile image"
+                  alt={`${data.name} profile`}
                   width={96}
                   height={96}
                   className="rounded object-cover shrink-0"
@@ -116,16 +120,16 @@ export default function Artist({ artistData, score, userData }) {
                     {data.name} – {data.followers.toLocaleString()} Followers
                   </div>
                   <div className="flex gap-2 flex-wrap">
-                    {data.genre.map((genres, i) => (
+                    {data.genre.map((genre, i) => (
                       <Badge
-                        className="text-[10px] sm:text-xs bg-[#E6F5FC] text-[#004875] border-[#004875] border-2"
                         key={i}
+                        className="text-[10px] sm:text-xs bg-[#E6F5FC] text-[#004875] border-[#004875] border-2"
                       >
-                        {genres}
+                        {genre}
                       </Badge>
                     ))}
                   </div>
-                  <Link href={data.uri} target="_blank">
+                  <Link href={data.uri} target="_blank" rel="noopener noreferrer">
                     <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2 text-[10px] sm:text-xs">
                       <span>discover discography</span>
                       <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />

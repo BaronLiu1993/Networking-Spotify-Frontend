@@ -9,22 +9,29 @@ import Profiles from "@/app/components/profiles/profiles";
 export default function ClientWrapper({ userId1, userId2, syncData, syncUserData }) {
   const controls = useAnimation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [sectionHeight, setSectionHeight] = useState(800);
+  const [sectionHeight, setSectionHeight] = useState(window.innerHeight || 800);
   const isAnimatingRef = useRef(false);
   const touchStartY = useRef(0);
 
   const sectionCount = 5;
 
-  // Update screen height responsively
   useEffect(() => {
-    const updateHeight = () => setSectionHeight(window.innerHeight);
+    const updateHeight = () => {
+      // Use innerHeight minus possible browser UI if needed
+      setSectionHeight(window.innerHeight);
+    };
+
     updateHeight();
+
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
   const scrollToIndex = async (index) => {
-    if (index < 0 || index >= sectionCount || isAnimatingRef.current) return;
+    if (index < 0) index = 0;
+    else if (index >= sectionCount) index = sectionCount - 1;
+
+    if (isAnimatingRef.current) return;
 
     setActiveIndex(index);
     isAnimatingRef.current = true;
@@ -53,8 +60,8 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
     if (Math.abs(deltaY) < 50 || isAnimatingRef.current) return;
 
-    if (deltaY < 0) scrollToIndex(activeIndex + 1); // swipe up
-    else scrollToIndex(activeIndex - 1); // swipe down
+    if (deltaY < 0) scrollToIndex(activeIndex + 1);
+    else scrollToIndex(activeIndex - 1);
   };
 
   useEffect(() => {
@@ -70,51 +77,73 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
   }, [activeIndex, sectionHeight]);
 
   return (
-    <div className="h-screen overflow-hidden touch-none fixed inset-0 z-0 bg-white">
-      <motion.div
-        animate={controls}
-        className="w-full"
-        style={{
-          height: `${sectionHeight * sectionCount}px`,
-        }}
-      >
-        <div style={{ height: sectionHeight }} className="h-screen">
-          <Artist
-            artistData={syncData.data.artists.spotifyArtistData2}
-            score={syncData.data.artistScore.score2}
-            userData={syncData.data.userData.user2}
-          />
-        </div>
-        <div style={{ height: sectionHeight }} className="h-screen">
-          <Artist
-            artistData={syncData.data.artists.spotifyArtistData1}
-            score={syncData.data.artistScore.score1}
-            userData={syncData.data.userData.user1}
-          />
-        </div>
-        <div style={{ height: sectionHeight }} className="h-screen">
-          <Tracks
-            trackData={syncData.data.tracks.spotifyTrackData1}
-            score={syncData.data.trackScore.score1}
-            userData={syncData.data.userData.user1}
-          />
-        </div>
-        <div style={{ height: sectionHeight }} className="h-screen">
-          <Tracks
-            trackData={syncData.data.tracks.spotifyTrackData2}
-            score={syncData.data.trackScore.score2}
-            userData={syncData.data.userData.user2}
-          />
-        </div>
-        <div style={{ height: sectionHeight }} className="h-screen">
-          <Profiles
-            spotifyData={syncData.data.userData}
-            userData={syncUserData.data}
-            userId1={userId1}
-            userId2={userId2}
-          />
-        </div>
-      </motion.div>
-    </div>
+    <>
+      {/* Global styles to remove margin/padding and fix height */}
+      <style jsx global>{`
+        html, body, #__next {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
+        }
+        body {
+          overscroll-behavior: none; /* prevent iOS bounce */
+        }
+      `}</style>
+
+      <div className="fixed inset-0 z-0 bg-white overflow-hidden touch-none">
+        <motion.div
+          animate={controls}
+          className="w-full"
+          style={{
+            height: sectionHeight * sectionCount,
+            overflow: "hidden",
+          }}
+        >
+          {[ // map through 5 sections for clean code
+            <Artist
+              key="artist2"
+              artistData={syncData.data.artists.spotifyArtistData2}
+              score={syncData.data.artistScore.score2}
+              userData={syncData.data.userData.user2}
+            />,
+            <Artist
+              key="artist1"
+              artistData={syncData.data.artists.spotifyArtistData1}
+              score={syncData.data.artistScore.score1}
+              userData={syncData.data.userData.user1}
+            />,
+            <Tracks
+              key="tracks1"
+              trackData={syncData.data.tracks.spotifyTrackData1}
+              score={syncData.data.trackScore.score1}
+              userData={syncData.data.userData.user1}
+            />,
+            <Tracks
+              key="tracks2"
+              trackData={syncData.data.tracks.spotifyTrackData2}
+              score={syncData.data.trackScore.score2}
+              userData={syncData.data.userData.user2}
+            />,
+            <Profiles
+              key="profiles"
+              spotifyData={syncData.data.userData}
+              userData={syncUserData.data}
+              userId1={userId1}
+              userId2={userId2}
+            />,
+          ].map((Component, i) => (
+            <div
+              key={i}
+              style={{ height: sectionHeight }}
+              className="w-full m-0 p-0"
+            >
+              {Component}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </>
   );
 }

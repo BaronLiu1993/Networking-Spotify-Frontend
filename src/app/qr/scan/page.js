@@ -3,8 +3,8 @@ import ClientWrapper from "./clientwrapper";
 
 export default async function Scan({ searchParams }) {
   //Get User ID From Query Params
-  const userId1 = await searchParams.id;
-  const messageId = await searchParams.messageId;
+  const userId1 = searchParams.id;
+  const messageId = searchParams.messageId;
   const cookieStore = await cookies();
   const userId2 = cookieStore.get("userId");
   const accessToken = cookieStore.get("accessToken");
