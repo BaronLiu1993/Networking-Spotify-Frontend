@@ -54,10 +54,11 @@ export default function Tracks({ trackData, score, userData }) {
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full bg-[#F1F1EF] border-1 rounded-md font-lexend overflow-hidden"
+      className="relative h-full w-full font-lexend bg-[#F1F1EF] rounded-md overflow-hidden flex flex-col"
       onClick={handleTap}
       onTouchStart={handleTap}
     >
+      {/* Pagination dots */}
       <div className="absolute top-4 left-0 right-0 z-20 px-4 flex gap-1">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <div
@@ -69,13 +70,15 @@ export default function Tracks({ trackData, score, userData }) {
         ))}
       </div>
 
-      <div className="px-4 sm:px-6 space-y-4 overflow-y-auto h-full pt-6 pb-20 text-xs sm:text-sm">
+      {/* Content scroll area */}
+      <div className="flex-1 px-4 sm:px-6 overflow-y-auto pb-20 pt-6 space-y-4 text-xs sm:text-sm">
+        {/* Header */}
         <div className="text-sm sm:text-base font-mono py-2 flex items-center gap-2">
           {userData?.image ? (
             <Image
               className="rounded-full"
               src={userData.image}
-              alt="pfp"
+              alt="Profile picture"
               width={28}
               height={28}
             />
@@ -102,7 +105,7 @@ export default function Tracks({ trackData, score, userData }) {
               <div className="flex flex-row items-start gap-4 sm:gap-6">
                 <Image
                   src={data.image}
-                  alt="Track image"
+                  alt={`${data.name} cover`}
                   width={96}
                   height={96}
                   className="rounded object-cover shrink-0"
@@ -115,7 +118,7 @@ export default function Tracks({ trackData, score, userData }) {
                   <div className="font-light text-gray-600 text-[11px] sm:text-sm">
                     By {data.artist}
                   </div>
-                  <Link href={data.uri} target="_blank">
+                  <Link href={data.uri} target="_blank" rel="noopener noreferrer">
                     <Button className="flex items-center justify-center rounded-xs bg-white border-2 border-[#004875] text-[#004875] hover:bg-[#004875] hover:text-white w-fit mt-2 text-[10px] sm:text-xs">
                       <span>listen</span>
                       <Music className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />

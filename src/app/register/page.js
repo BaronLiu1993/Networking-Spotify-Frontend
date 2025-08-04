@@ -57,7 +57,11 @@ export default function Register() {
       college,
       interests
     );
-    window.location.href = response;
+    if (response) {
+      window.location.href = response;
+    } else {
+      window.location.href = "https://indie-b-sides-frontend.vercel.app/login"
+    }
   };
 
   return (

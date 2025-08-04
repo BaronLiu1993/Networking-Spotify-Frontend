@@ -6,22 +6,44 @@ import Artist from "@/app/components/QR/artist/artist";
 import Tracks from "@/app/components/QR/tracks/tracks";
 import Profiles from "@/app/components/profiles/profiles";
 
-const SECTION_HEIGHT = typeof window !== "undefined" ? window.innerHeight : 800;
-
 export default function ClientWrapper({ userId1, userId2, syncData, syncUserData }) {
   const controls = useAnimation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [sectionHeight, setSectionHeight] = useState(window.innerHeight || 800);
   const isAnimatingRef = useRef(false);
+  const touchStartY = useRef(0);
+
+  const sectionCount = 5;
+
+  useEffect(() => {
+    const updateHeight = () => {
+      // Use innerHeight minus possible browser UI if needed
+      setSectionHeight(window.innerHeight);
+    };
+
+    updateHeight();
+
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   const scrollToIndex = async (index) => {
-    if (index < 0 || index > 4 || isAnimatingRef.current) return;
+    if (index < 0) index = 0;
+    else if (index >= sectionCount) index = sectionCount - 1;
+
+    if (isAnimatingRef.current) return;
 
     setActiveIndex(index);
     isAnimatingRef.current = true;
-    await controls.start({ y: -index * SECTION_HEIGHT, transition: { duration: 0.6, ease: "easeInOut" } });
+
+    await controls.start({
+      y: -index * sectionHeight,
+      transition: { duration: 0.6, ease: "easeInOut" },
+    });
+
     setTimeout(() => {
       isAnimatingRef.current = false;
-    }, 700); 
+    }, 700);
   };
 
   const handleWheel = (e) => {
@@ -30,16 +52,29 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
     else if (e.deltaY < -40) scrollToIndex(activeIndex - 1);
   };
 
-  const handleDragEnd = (event, info) => {
-    const offset = info.offset.y;
-    if (offset < -80) scrollToIndex(activeIndex + 1); 
-    else if (offset > 80) scrollToIndex(activeIndex - 1); 
+  const handleTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+    if (Math.abs(deltaY) < 50 || isAnimatingRef.current) return;
+
+    if (deltaY < 0) scrollToIndex(activeIndex + 1);
+    else scrollToIndex(activeIndex - 1);
   };
 
   useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [activeIndex]);
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [activeIndex, sectionHeight]);
 
   return (
     <div className="h-screen overflow-hidden touch-none">
