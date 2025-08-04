@@ -30,7 +30,7 @@ export default function Login() {
       )}`;
     } else {
       const error = await res.json();
-      alert(error.error || "Login failed");
+      alert("Login failed");
     }
   };
 

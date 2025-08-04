@@ -17,7 +17,6 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
 
   useEffect(() => {
     const updateHeight = () => {
-      // Use innerHeight minus possible browser UI if needed
       setSectionHeight(window.innerHeight);
     };
 
