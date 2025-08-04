@@ -12,9 +12,7 @@ export default async function QR({ params }) {
       method: "GET",
     }
   );
-
   const profileData = await profileSyncData.json();
-
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-grow flex items-center justify-center">

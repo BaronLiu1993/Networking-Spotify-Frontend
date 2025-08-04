@@ -49,7 +49,7 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
         dragConstraints={{ top: 0, bottom: 0 }}
         onDragEnd={handleDragEnd}
         className="h-screen w-full"
-        style={{ height: `${SECTION_HEIGHT * 5}px` }} // total height
+        style={{ height: `${SECTION_HEIGHT * 5}px` }} 
       >
         <div className="h-screen">
           <Artist
