@@ -76,52 +76,60 @@ export default function ClientWrapper({ userId1, userId2, syncData, syncUserData
   }, [activeIndex, sectionHeight]);
 
   return (
-    <div className="h-screen overflow-hidden touch-none">
-      <motion.div
-        animate={controls}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        onDragEnd={handleDragEnd}
-        className="h-screen w-full"
-        style={{ height: `${SECTION_HEIGHT * 5}px` }} 
-      >
-        <div className="h-screen">
-          <Artist
-            artistData={syncData.data.artists.spotifyArtistData2}
-            score={syncData.data.artistScore.score2}
-            userData={syncData.data.userData.user2}
-          />
-        </div>
-        <div className="h-screen">
-          <Artist
-            artistData={syncData.data.artists.spotifyArtistData1}
-            score={syncData.data.artistScore.score1}
-            userData={syncData.data.userData.user1}
-          />
-        </div>
-        <div className="h-screen">
-          <Tracks
-            trackData={syncData.data.tracks.spotifyTrackData1}
-            score={syncData.data.trackScore.score1}
-            userData={syncData.data.userData.user1}
-          />
-        </div>
-        <div className="h-screen">
-          <Tracks
-            trackData={syncData.data.tracks.spotifyTrackData2}
-            score={syncData.data.trackScore.score2}
-            userData={syncData.data.userData.user2}
-          />
-        </div>
-        <div className="h-screen">
-          <Profiles
-            spotifyData={syncData.data.userData}
-            userData={syncUserData.data}
-            userId1={userId1}
-            userId2={userId2}
-          />
-        </div>
-      </motion.div>
-    </div>
+    <>
+    
+      <div className="fixed inset-0 z-0 bg-white overflow-hidden touch-none">
+        <motion.div
+          animate={controls}
+          className="w-full"
+          style={{
+            height: sectionHeight * sectionCount,
+            overflow: "hidden",
+          }}
+        >
+          {[ 
+            <Artist
+              key="artist2"
+              artistData={syncData.data.artists.spotifyArtistData2}
+              score={syncData.data.artistScore.score2}
+              userData={syncData.data.userData.user2}
+            />,
+            <Artist
+              key="artist1"
+              artistData={syncData.data.artists.spotifyArtistData1}
+              score={syncData.data.artistScore.score1}
+              userData={syncData.data.userData.user1}
+            />,
+            <Tracks
+              key="tracks1"
+              trackData={syncData.data.tracks.spotifyTrackData1}
+              score={syncData.data.trackScore.score1}
+              userData={syncData.data.userData.user1}
+            />,
+            <Tracks
+              key="tracks2"
+              trackData={syncData.data.tracks.spotifyTrackData2}
+              score={syncData.data.trackScore.score2}
+              userData={syncData.data.userData.user2}
+            />,
+            <Profiles
+              key="profiles"
+              spotifyData={syncData.data.userData}
+              userData={syncUserData.data}
+              userId1={userId1}
+              userId2={userId2}
+            />,
+          ].map((Component, i) => (
+            <div
+              key={i}
+              style={{ height: sectionHeight }}
+              className="w-full m-0 p-0"
+            >
+              {Component}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </>
   );
 }
